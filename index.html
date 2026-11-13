@@ -12,22 +12,27 @@ header h1{margin:8px 0 0;font-size:22px;letter-spacing:1px;text-shadow:0 2px 4px
 .watermark{position:fixed;bottom:8px;right:8px;font-size:10px;opacity:.7;z-index:999;background:#fff;padding:5px 10px;border-radius:20px;border:1px solid gold;box-shadow:0 2px 8px rgba(0,0,0,.15);font-weight:700}
 .card{background:#fff;margin:12px;border-radius:18px;padding:14px;box-shadow:0 4px 18px rgba(11,42,91,.10);border:1px solid #eef2ff}
 .card h3{color:#0b2a5b;font-size:17px}
-.btn{border:0;padding:11px 14px;border-radius:12px;font-weight:800;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.12);transition:.2s}
-.btn:active{transform:scale(.97)}
+.btn{border:0;padding:11px 14px;border-radius:12px;font-weight:800;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.12)}
 .btn-blue{background:linear-gradient(135deg,#0b2a5b,#2563eb);color:#fff}.btn-gold{background:linear-gradient(135deg,#facc15,#f59e0b);color:#111}.btn-red{background:linear-gradient(135deg,#e11d48,#be123c);color:#fff}.btn-green{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff}.btn-gray{background:#eef2ff;color:#0b2a5b}.btn-orange{background:linear-gradient(135deg,#f97316,#ea580c);color:#fff}
 input,select,textarea{width:100%;padding:11px;margin:5px 0;border:2px solid #e2e8f0;border-radius:12px;background:#f8fafc;font-size:15px} input:focus,select:focus{border-color:#2563eb;outline:none;background:#fff}
 .flex{display:flex;gap:8px;flex-wrap:wrap}.avatar{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#ddd;border:3px solid gold;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-.student{display:flex;gap:10px;align-items:center;background:linear-gradient(90deg,#f8fafc,#eff6ff);padding:10px;border-radius:14px;margin:7px 0;border:1px solid #dbeafe}
-.numero{background:#0b2a5b;color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;box-shadow:0 2px 6px rgba(11,42,91,.3)}
+.student{display:flex;gap:10px;align-items:center;background:linear-gradient(90deg,#f8fafc,#eff6ff);padding:10px;border-radius:14px;margin:7px 0;border:1px solid #dbeafe;cursor:pointer}
+.student.absent{background:linear-gradient(90deg,#fff1f2,#ffe4e6);border:2px solid #e11d48}
+.numero{background:#0b2a5b;color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0}
+.numero.absent{background:#e11d48}
 table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid #e2e8f0;padding:7px;text-align:left} th{background:#0b2a5b;color:#fff}
 .hidden{display:none} .alert{border:2px solid #e11d48;background:#fff1f2;animation:blink 1s infinite;border-radius:12px} @keyframes blink{50%{background:#ffe4e6}}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#fff;border-radius:12px;margin:10px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .moncompte{background:linear-gradient(135deg,#fffbeb,#fef9c3);border:2px solid gold}
 .abandon-card{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fb923c}
 .expulse-card{background:linear-gradient(135deg,#fff1f2,#ffe4e6);border:2px solid #fda4af}
+.appel-card{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #2563eb}
 .badge-az{background:#0b2a5b;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:800}
-.badge-vert{background:#dcfce7;color:#166534;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:800}
-.badge-rouge{background:#ffe4e6;color:#991b1b;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:800}
+.badge-vert{background:#dcfce7;color:#166534;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800}
+.badge-rouge{background:#ffe4e6;color:#991b1b;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800}
+.absent-jour{background:#fff1f2;border:2px solid #e11d48;border-radius:14px;padding:10px;margin-top:10px}
+.recherche{border:2px solid #2563eb!important;background:#fff!important;font-size:16px}
+.choix-role{flex:1;padding:16px;font-size:18px}
 </style>
 </head>
 <body>
@@ -44,12 +49,28 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid 
 </select>
 </header>
 
+<!-- CONNEXION SANS CODES AFFICHÉS -->
 <div id="login" class="card" style="text-align:center;border:2px solid #0b2a5b">
 <h2 style="color:#0b2a5b">🔐 Connexion Sécurisée</h2>
-<p>Conseiller = 9999 • Surveillant 1 = 2001 • Surveillant 2 = 2002</p>
-<input id="codeLogin" type="password" placeholder="Entre ton code secret">
-<button class="btn btn-blue" onclick="login()">ENTRER ➜ ✨</button>
+<div id="etape1">
+<p><b>Qui es-tu ?</b><br>Tape <b>C</b> pour Conseiller, <b>1</b> pour Surveillant 1, <b>2</b> pour Surveillant 2</p>
+<div class="flex">
+<button class="btn btn-blue choix-role" onclick="choisirRole('conseiller')">👑 C<br><small>CONSEILLER</small></button>
+<button class="btn btn-gray choix-role" onclick="choisirRole('s1')">1<br><small>SURVEILLANT 1</small></button>
+<button class="btn btn-gray choix-role" onclick="choisirRole('s2')">2<br><small>SURVEILLANT 2</small></button>
+</div>
+<p style="font-size:12px;color:#666">Ou tape au clavier :</p>
+<input id="choixClavier" placeholder="Tape C, 1 ou 2 puis CONTINUER" maxlength="1">
+<button class="btn btn-blue" onclick="choisirParClavier()">CONTINUER ➜</button>
+</div>
+<div id="etape2" class="hidden">
+<p id="texteEtape2" style="font-weight:800;color:#0b2a5b;font-size:17px"></p>
+<p style="font-size:13px;color:#666">Entre TON code secret. Personne d'autre ne le voit.</p>
+<input id="codeLogin" type="password" placeholder="Ton code secret">
+<button class="btn btn-blue" onclick="validerCode()">ENTRER ➜ ✨</button>
+<button class="btn btn-gray" onclick="retourEtape1()">← Retour</button>
 <p id="loginMsg" style="color:red"></p>
+</div>
 </div>
 
 <div id="app" class="hidden">
@@ -62,13 +83,13 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid 
 <div style="flex:1;text-align:center;background:#eff6ff;padding:10px;border-radius:14px;border:1px solid #bfdbfe"><img id="imgS1" class="avatar" src="https://via.placeholder.com/54?text=S1"><br><b>SURVEILLANT 1</b><br><span id="nomS1" style="font-weight:800;color:#0b2a5b">M. Ouédraogo</span><br><input type="file" accept="image/*" onchange="loadImg(this,'imgS1','s1')"></div>
 <div style="flex:1;text-align:center;background:#f0fdf4;padding:10px;border-radius:14px;border:1px solid #bbf7d0"><img id="imgS2" class="avatar" src="https://via.placeholder.com/54?text=S2"><br><b>SURVEILLANT 2</b><br><span id="nomS2" style="font-weight:800;color:#0b2a5b">Mme Sawadogo</span><br><input type="file" accept="image/*" onchange="loadImg(this,'imgS2','s2')"></div>
 </div>
-<p style="font-size:12px;color:#666;text-align:center">Chacun change SON nom dans MON COMPTE ci-dessous. Tu ne peux pas changer le nom des autres.</p>
+<p style="font-size:12px;color:#666;text-align:center">Chacun change SON nom dans MON COMPTE ci-dessous.</p>
 </div>
 
 <div class="card moncompte">
-<h3>⚙️ MON COMPTE - Changer MON nom + MON code quand je veux ✨</h3>
-<p style="font-size:13px">Tu es connecté en tant que : <b id="monRoleAffiche" style="color:#0b2a5b">Conseiller</b> • Tu ne changes que TON nom et TON code.</p>
-<label>✏️ Mon nouveau nom (Ex: M. Konaté 1) :</label>
+<h3>⚙️ MON COMPTE - Changer MON nom + MON code ✨</h3>
+<p style="font-size:13px">Tu es : <b id="monRoleAffiche" style="color:#0b2a5b">Conseiller</b></p>
+<label>✏️ Mon nouveau nom :</label>
 <input id="nouveauNom" placeholder="Écris ton nouveau nom">
 <input id="ancienCode" type="password" placeholder="Ancien code">
 <input id="nouveauCode" type="password" placeholder="Nouveau code">
@@ -76,10 +97,10 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid 
 <p id="msgCompte"></p>
 </div>
 
-<div class="card" id="verrouCard" style="border:2px solid #e11d48">
+<div class="card" style="border:2px solid #e11d48">
 <h3>🔐 VERROUILLAGE ANNÉE + EMPREINTE CONSEILLER SEUL 🛡️</h3>
-<p>Code Secret de verrouillage actuel : <b id="codeSecretLabel">2027</b> <button class="btn btn-gray" onclick="changerCodeSecret()">Changer</button></p>
-<input id="codeVerrou" placeholder="Entre Code Secret pour verrouiller">
+<p>Code Secret : <b id="codeSecretLabel">••••</b> <button class="btn btn-gray" onclick="changerCodeSecret()">Changer</button></p>
+<input id="codeVerrou" type="password" placeholder="Entre Code Secret pour verrouiller">
 <button class="btn btn-red" onclick="verrouillerAnnee()">🔒 VERROUILLER L'ANNÉE</button>
 <button class="btn btn-green" onclick="deverrouillerEmpreinte()">👆 DÉVERROUILLER AVEC EMPREINTE + CODE</button>
 <p id="etatVerrou">État : 🟢 ANNÉE OUVERTE - On peut modifier</p>
@@ -89,6 +110,31 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid 
 <h3>📚 CLASSES - LYCÉE RÉGIONAL DE HOUNDÉ</h3>
 <div class="flex"><input id="nouvelleClasse" placeholder="Ex: 2nde A" style="flex:1"><button class="btn btn-blue" onclick="ajouterClasse()">+ CLASSE</button></div>
 <div id="listeClasses" class="flex"></div>
+</div>
+
+<div class="card appel-card">
+<h3>📋 FAIRE L'APPEL RAPIDE - CONSEILLER 👑</h3>
+<p style="font-size:13px;background:#fff;padding:8px;border-radius:10px">👆 <b>Choisis la classe, la matière, l'heure, puis clique sur les absents.</b> Ça écrit ABSENT tout seul !</p>
+<label>Classe pour l'appel :</label>
+<select id="classeAppel"><option>2nde A</option><option>2nde B</option><option>1ère A</option><option>Tle A</option></select>
+<div class="flex">
+<div style="flex:1"><label>Jour :</label><select id="jourAppel"><option>Lundi</option><option>Mardi</option><option>Mercredi</option><option>Jeudi</option><option>Vendredi</option><option>Samedi</option></select></div>
+<div style="flex:1"><label>Matière :</label><select id="matiereAppel"><option>Maths</option><option>Français</option><option>Anglais</option><option>Physique-Chimie</option><option>SVT</option><option>Histoire-Géo</option><option>Philosophie</option><option>EPS</option><option>Allemand</option><option>Espagnol</option><option>Informatique</option><option>Autre</option></select></div>
+</div>
+<label>🕐 Horaire :</label>
+<select id="horaireAppel"><option>7h - 8h</option><option>8h - 9h</option><option>9h - 10h</option><option>10h - 11h</option><option>11h - 12h</option><option>12h - 13h</option><option>13h - 14h</option><option>14h - 15h</option><option>15h - 16h</option><option>16h - 17h</option><option>17h - 18h</option></select>
+<button class="btn btn-blue" onclick="ouvrirAppel()">📋 OUVRIR LA LISTE D'APPEL DE CETTE CLASSE</button>
+<div id="zoneAppel" class="hidden">
+<p style="font-weight:800;color:#0b2a5b">👆 CLIQUE SUR L'ÉLÈVE ABSENT !</p>
+<input id="rechercheAppel" class="recherche" placeholder="🔍 Rechercher un élève dans l'appel... Ex: Gn Juste" oninput="filtrerAppel=this.value;afficherAppel()">
+<div id="listeAppel"></div>
+<div class="absent-jour">
+<h3 style="margin:0;color:#991b1b">📕 LISTE DES ABSENTS DU JOUR - <span id="titreAbsJour"></span> <span id="compteurAbsJour" style="background:#e11d48;color:#fff;padding:2px 10px;border-radius:20px">0</span></h3>
+<div id="listeAbsJour"></div>
+<button class="btn btn-green" onclick="validerAppel()">✅ VALIDER L'APPEL DU JOUR</button>
+<button class="btn btn-gray" onclick="reinitialiserAppel()">🔄 REMETTRE TOUT LE MONDE PRÉSENT</button>
+</div>
+</div>
 </div>
 
 <div class="card">
@@ -104,24 +150,27 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid 
 
 <div class="card">
 <h3>👨‍🎓 LISTE DE CLASSE - ÉLÈVES - <span id="classeActive2">2nde A</span> <span id="totalClasse"></span> <span class="badge-az">A → Z AUTOMATIQUE</span></h3>
-<p style="font-size:12px;color:#0b2a5b;background:#eff6ff;padding:8px;border-radius:10px">📋 <b>Classement automatique A → Z</b> avec N° d'ordre 1, 2, 3... • Clique sur VOIR FICHE pour voir la photo, le parent, et ajouter les absences par matière et par heure.</p>
+<!-- BARRE DE RECHERCHE POUR 200 ELEVES -->
+<label>🔍 BARRE DE RECHERCHE - Pour trouver vite un élève dans cette classe :</label>
+<input id="rechercheEleve" class="recherche" placeholder="🔍 Tape le nom... Ex: Gn Juste, Diallo, Zongo..." oninput="filtrerListe=this.value;renderAll()">
+<p style="font-size:12px;color:#0b2a5b;background:#eff6ff;padding:8px;border-radius:10px">📋 <b>Classement A → Z</b> avec N° 1, 2, 3... • Tape 2-3 lettres et l'élève apparaît tout seul.</p>
 <div id="listeEleves"></div>
 </div>
 
 <div class="card expulse-card">
 <h3>🚫 ÉLÈVES EXPULSÉS</h3>
-<div id="listeExpulses"><i>Aucun expulsé pour le moment</i></div>
+<div id="listeExpulses"><i>Aucun expulsé</i></div>
 </div>
 
 <div class="card abandon-card">
 <h3>🏃 ÉLÈVES EN ABANDON 🧡</h3>
 <p style="font-size:12px;color:#9a3412">Les élèves qui ont quitté le lycée. On garde leur fiche, on ne les efface pas.</p>
-<div id="listeAbandons"><i>Aucun abandon pour le moment</i></div>
+<div id="listeAbandons"><i>Aucun abandon</i></div>
 </div>
 
 <div class="card">
 <h3>📉 BILAN TRIMESTRE - POINTS À RETIRER</h3>
-<p>Règle du Conseiller : 1 absence Non Justifiée = <input id="reglePoints" type="number" value="2" style="width:60px"> points à retirer <button class="btn btn-gray" onclick="calculerBilan()">Calculer</button></p>
+<p>Règle : 1 absence Non Justifiée = <input id="reglePoints" type="number" value="2" style="width:60px"> points <button class="btn btn-gray" onclick="calculerBilan()">Calculer</button></p>
 <div id="bilan"></div>
 <button class="btn btn-blue" onclick="window.print()">🖨️ IMPRIMER BILAN + LOGO HOUNDÉ</button>
 </div>
@@ -134,19 +183,14 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid 
 </div>
 
 <div id="fiche" class="card hidden" style="border:2px solid #0b2a5b">
-<h3 id="ficheTitre" style="color:#0b2a5b">FICHE ÉLÈVE</h3>
+<h3 id="ficheTitre">FICHE ÉLÈVE</h3>
 <div id="ficheContenu"></div>
 <h4>➕ Ajouter une absence</h4>
-<label>Jour :</label>
-<select id="jourAbs"><option>Lundi</option><option>Mardi</option><option>Mercredi</option><option>Jeudi</option><option>Vendredi</option><option>Samedi</option></select>
-<label>📚 Matière où l'élève est absent :</label>
-<select id="matiereAbs"><option>Maths</option><option>Français</option><option>Anglais</option><option>Physique-Chimie</option><option>SVT</option><option>Histoire-Géo</option><option>Philosophie</option><option>EPS</option><option>Allemand</option><option>Espagnol</option><option>Informatique</option><option>Autre</option></select>
-<label>🕐 Horaire - 7h-8h-9h-10h :</label>
-<select id="horaireAbs"><option>7h - 8h</option><option>8h - 9h</option><option>9h - 10h</option><option>10h - 11h</option><option>11h - 12h</option><option>12h - 13h</option><option>13h - 14h</option><option>14h - 15h</option><option>15h - 16h</option><option>16h - 17h</option><option>17h - 18h</option></select>
-<label>Motif :</label>
-<select id="motifAbs"><option>Maladie</option><option>Retard</option><option>Famille</option><option>Sans motif</option><option>Autre</option></select>
-<label>Observation :</label>
-<select id="obsAbs"><option>Justifiée</option><option>Non Justifiée</option></select>
+<label>Jour :</label><select id="jourAbs"><option>Lundi</option><option>Mardi</option><option>Mercredi</option><option>Jeudi</option><option>Vendredi</option><option>Samedi</option></select>
+<label>📚 Matière où l'élève est absent :</label><select id="matiereAbs"><option>Maths</option><option>Français</option><option>Anglais</option><option>Physique-Chimie</option><option>SVT</option><option>Histoire-Géo</option><option>Philosophie</option><option>EPS</option><option>Allemand</option><option>Espagnol</option><option>Informatique</option><option>Autre</option></select>
+<label>🕐 Horaire :</label><select id="horaireAbs"><option>7h - 8h</option><option>8h - 9h</option><option>9h - 10h</option><option>10h - 11h</option><option>11h - 12h</option><option>12h - 13h</option><option>13h - 14h</option><option>14h - 15h</option><option>15h - 16h</option><option>16h - 17h</option><option>17h - 18h</option></select>
+<label>Motif :</label><select id="motifAbs"><option>Maladie</option><option>Retard</option><option>Famille</option><option>Sans motif</option><option>Autre</option></select>
+<label>Observation :</label><select id="obsAbs"><option>Justifiée</option><option>Non Justifiée</option></select>
 <button class="btn btn-blue" onclick="ajouterAbsence()">ENREGISTRER ABSENCE</button>
 <button class="btn btn-red" onclick="expulserEleve()">🚫 EXPULSER</button>
 <button class="btn btn-orange" onclick="abandonnerEleve()">🏃 ABANDON</button>
@@ -158,106 +202,87 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid 
 <script>
 let users=JSON.parse(localStorage.getItem("hounde_users")||'{"conseiller":"9999","s1":"2001","s2":"2002"}');
 let noms=JSON.parse(localStorage.getItem("hounde_noms")||'{"conseiller":"M. Kaboré","s1":"M. Ouédraogo","s2":"Mme Sawadogo"}');
-let currentUser=null, currentRole=null;
+let currentUser=null, currentRole=null, roleChoisi=null;
 let classes=["2nde A","2nde B","1ère A","Tle A"];
 let classeActive="2nde A";
 let eleves=JSON.parse(localStorage.getItem("hounde_eleves")||"[]");
 let expulses=JSON.parse(localStorage.getItem("hounde_expulses")||"[]");
 let abandons=JSON.parse(localStorage.getItem("hounde_abandons")||"[]");
-let verrouille=false;
-let codeSecret="2027";
-let eleveOuvert=null;
+let verrouille=false; let codeSecret="2027"; let eleveOuvert=null;
+let filtrerListe=""; let filtrerAppel="";
 function save(){localStorage.setItem("hounde_eleves",JSON.stringify(eleves));localStorage.setItem("hounde_expulses",JSON.stringify(expulses));localStorage.setItem("hounde_abandons",JSON.stringify(abandons));localStorage.setItem("hounde_users",JSON.stringify(users));localStorage.setItem("hounde_noms",JSON.stringify(noms));}
 function majNoms(){document.getElementById("nomConseiller").innerText=noms.conseiller;document.getElementById("nomS1").innerText=noms.s1;document.getElementById("nomS2").innerText=noms.s2;}
 majNoms();
 function triAZ(liste){return liste.sort((a,b)=>(a.nom+" "+a.prenom).localeCompare(b.nom+" "+b.prenom,"fr"));}
-function login(){
-let c=document.getElementById("codeLogin").value;
-if(c===users.conseiller){currentRole="conseiller";currentUser=noms.conseiller;}
-else if(c===users.s1){currentRole="s1";currentUser=noms.s1;}
-else if(c===users.s2){currentRole="s2";currentUser=noms.s2;}
-else{document.getElementById("loginMsg").innerText="❌ Code faux";return;}
-document.getElementById("login").classList.add("hidden");
-document.getElementById("app").classList.remove("hidden");
-document.getElementById("qui").innerText="Connecté : "+currentUser+" • "+currentRole;
-document.getElementById("monRoleAffiche").innerText=currentUser+" ("+currentRole+")";
-document.getElementById("nouveauNom").value=currentUser;
-document.getElementById("watermark").innerText="LYCÉE RÉGIONAL DE HOUNDÉ • Vu par "+currentUser+" • "+new Date().toLocaleDateString();
-renderAll();
-}
+// CONNEXION EN 2 ETAPES - CODES CACHES
+function choisirRole(r){roleChoisi=r;let label=r==="conseiller"?"👑 CONSEILLER - Entre TON code secret":r==="s1"?"1 - SURVEILLANT 1 - Entre TON code secret":"2 - SURVEILLANT 2 - Entre TON code secret";document.getElementById("etape1").classList.add("hidden");document.getElementById("etape2").classList.remove("hidden");document.getElementById("texteEtape2").innerText=label;document.getElementById("codeLogin").value="";document.getElementById("codeLogin").focus();}
+function choisirParClavier(){let v=document.getElementById("choixClavier").value.trim().toUpperCase();if(v==="C") choisirRole("conseiller");else if(v==="1") choisirRole("s1");else if(v==="2") choisirRole("s2");else alert("Tape C pour Conseiller, 1 pour Surveillant 1, 2 pour Surveillant 2");}
+function retourEtape1(){document.getElementById("etape2").classList.add("hidden");document.getElementById("etape1").classList.remove("hidden");roleChoisi=null;}
+function validerCode(){let c=document.getElementById("codeLogin").value;if(c===users[roleChoisi]){currentRole=roleChoisi;currentUser=noms[roleChoisi];document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");document.getElementById("qui").innerText="Connecté : "+currentUser+" • "+currentRole;document.getElementById("monRoleAffiche").innerText=currentUser+" ("+currentRole+")";document.getElementById("nouveauNom").value=currentUser;document.getElementById("watermark").innerText="LYCÉE RÉGIONAL DE HOUNDÉ • Vu par "+currentUser+" • "+new Date().toLocaleDateString();syncClasseAppel();renderAll();}else{document.getElementById("loginMsg").innerText="❌ Code faux. C'est TON code seul, essaie encore.";}}
 function logout(){location.reload();}
-function changerMonCompte(){
-let nouveauNom=document.getElementById("nouveauNom").value.trim();
-let a=document.getElementById("ancienCode").value, n=document.getElementById("nouveauCode").value;
-if(!nouveauNom){alert("Écris ton nouveau nom d'abord");return;}
-if(!n){alert("Mets un nouveau code");return;}
-if(a!==users[currentRole]){document.getElementById("msgCompte").innerText="❌ Ancien code faux";return;}
-noms[currentRole]=nouveauNom; users[currentRole]=n; save(); majNoms();
-currentUser=nouveauNom;
-document.getElementById("qui").innerText="Connecté : "+currentUser+" • "+currentRole;
-document.getElementById("monRoleAffiche").innerText=currentUser+" ("+currentRole+")";
-document.getElementById("msgCompte").innerText="✅ C'est changé ! Ton nouveau nom : "+nouveauNom+" | Ton nouveau code : "+n+" - Retiens-le bien.";
-}
-function changerCodeSecret(){if(currentRole!=="conseiller"){alert("Seul le Conseiller !");return;}let n=prompt("Nouveau Code Secret de verrouillage :");if(n){codeSecret=n;document.getElementById("codeSecretLabel").innerText=n;alert("Code Secret changé");}}
-function verrouillerAnnee(){if(currentRole!=="conseiller"){alert("Seul le Conseiller peut verrouiller !");return;}let c=document.getElementById("codeVerrou").value;if(c!==codeSecret){alert("❌ Code Secret faux");return;}verrouille=true;document.getElementById("etatVerrou").innerText="État : 🔒 ANNÉE VERROUILLÉE - Immodifiable. Seul le Conseiller avec Code + Empreinte peut déverrouiller.";alert("🔒 Année 2026-2027 verrouillée ! Personne ne peut modifier.");}
-function deverrouillerEmpreinte(){if(currentRole!=="conseiller"){alert("Seul le Conseiller !");return;}let c=prompt("Entre Code Secret :");if(c!==codeSecret){alert("❌ Code faux");return;}if(window.PublicKeyCredential){alert("👆 Pose ton doigt sur le capteur... (Empreinte vérifiée sur ton téléphone)");}else{let ok=confirm("👆 Ton téléphone demande l'empreinte. C'est bien toi ? Clique OK pour confirmer avec ton doigt.");if(!ok) return;}verrouille=false;document.getElementById("etatVerrou").innerText="État : 🟢 ANNÉE OUVERTE - On peut modifier";alert("✅ Déverrouillé avec Code + Empreinte. Tu as 10 minutes pour corriger.");}
+function changerMonCompte(){let nouveauNom=document.getElementById("nouveauNom").value.trim();let a=document.getElementById("ancienCode").value, n=document.getElementById("nouveauCode").value;if(!nouveauNom){alert("Écris ton nouveau nom");return;}if(!n){alert("Mets un nouveau code");return;}if(a!==users[currentRole]){document.getElementById("msgCompte").innerText="❌ Ancien code faux";return;}noms[currentRole]=nouveauNom;users[currentRole]=n;save();majNoms();currentUser=nouveauNom;document.getElementById("qui").innerText="Connecté : "+currentUser+" • "+currentRole;document.getElementById("monRoleAffiche").innerText=currentUser+" ("+currentRole+")";document.getElementById("msgCompte").innerText="✅ C'est changé ! Ton nouveau nom : "+nouveauNom+" | Ton nouveau code est gardé secret.";}
+function changerCodeSecret(){if(currentRole!=="conseiller"){alert("Seul le Conseiller !");return;}let n=prompt("Nouveau Code Secret :");if(n){codeSecret=n;alert("Code Secret changé et caché");}}
+function verrouillerAnnee(){if(currentRole!=="conseiller"){alert("Seul le Conseiller !");return;}let c=document.getElementById("codeVerrou").value;if(c!==codeSecret){alert("❌ Code faux");return;}verrouille=true;document.getElementById("etatVerrou").innerText="État : 🔒 ANNÉE VERROUILLÉE";alert("🔒 Année verrouillée !");}
+function deverrouillerEmpreinte(){if(currentRole!=="conseiller"){alert("Seul le Conseiller !");return;}let c=prompt("Entre Code Secret :");if(c!==codeSecret){alert("❌ Code faux");return;}alert("👆 Pose ton doigt sur le capteur... (Empreinte vérifiée)");verrouille=false;document.getElementById("etatVerrou").innerText="État : 🟢 ANNÉE OUVERTE";alert("✅ Déverrouillé avec Code + Empreinte");}
 function loadImg(input,imgId,key){let f=input.files[0];if(!f) return;let r=new FileReader();r.onload=e=>{document.getElementById(imgId).src=e.target.result;localStorage.setItem("hounde_"+key,e.target.result);};r.readAsDataURL(f);}
-function ajouterClasse(){let n=document.getElementById("nouvelleClasse").value.trim();if(!n) return;classes.push(n);renderAll();}
-function changerAnnee(v){document.getElementById("anneeLabel").innerText=v;alert("Année "+v+" affichée. Les anciennes années sont gardées en archives, rien n'est perdu.");}
-function ajouterEleve(){
-if(verrouille){alert("🔒 Année verrouillée ! Impossible de modifier.");return;}
-let nom=document.getElementById("nomEleve").value.trim(), pren=document.getElementById("prenomEleve").value.trim();
-if(!nom||!pren){alert("Mets Nom + Prénom");return;}
-let chefs=eleves.filter(e=>e.classe===classeActive && e.chef).length;
-if(document.getElementById("estChef").checked && chefs>=2){alert("Déjà 2 chefs dans cette classe !");return;}
-let photo="https://via.placeholder.com/54?text="+encodeURIComponent(pren[0]);
-let file=document.getElementById("photoEleve").files[0];
-if(file){let r=new FileReader();r.onload=e=>{finirAjout(e.target.result);};r.readAsDataURL(file);}else finirAjout(photo);
-function finirAjout(ph){eleves.push({id:Date.now(),nom,prenom:pren,classe:classeActive,photo:ph,parent:document.getElementById("parentEleve").value,tel:document.getElementById("telParent").value,chef:document.getElementById("estChef").checked,absences:[]});save();renderAll();alert("✅ Élève ajouté, classé A-Z automatiquement !");}
+function ajouterClasse(){let n=document.getElementById("nouvelleClasse").value.trim();if(!n) return;classes.push(n);syncClasseAppel();renderAll();}
+function syncClasseAppel(){let s=document.getElementById("classeAppel");let val=s.value;s.innerHTML=classes.map(c=>`<option ${c===val?'selected':''}>${c}</option>`).join('');}
+function changerAnnee(v){document.getElementById("anneeLabel").innerText=v;alert("Année "+v+" affichée. Rien n'est perdu.");}
+function ajouterEleve(){if(verrouille){alert("🔒 Année verrouillée !");return;}let nom=document.getElementById("nomEleve").value.trim(), pren=document.getElementById("prenomEleve").value.trim();if(!nom||!pren){alert("Mets Nom + Prénom");return;}let chefs=eleves.filter(e=>e.classe===classeActive && e.chef).length;if(document.getElementById("estChef").checked && chefs>=2){alert("Déjà 2 chefs !");return;}let photo="https://via.placeholder.com/54?text="+encodeURIComponent(pren[0]);let file=document.getElementById("photoEleve").files[0];if(file){let r=new FileReader();r.onload=e=>{finirAjout(e.target.result);};r.readAsDataURL(file);}else finirAjout(photo);function finirAjout(ph){eleves.push({id:Date.now(),nom,prenom:pren,classe:classeActive,photo:ph,parent:document.getElementById("parentEleve").value,tel:document.getElementById("telParent").value,chef:document.getElementById("estChef").checked,absences:[],absentJour:false});save();renderAll();alert("✅ Élève ajouté, classé A-Z !");}}
+function ouvrirAppel(){document.getElementById("zoneAppel").classList.remove("hidden");document.getElementById("titreAbsJour").innerText=document.getElementById("classeAppel").value+" • "+document.getElementById("matiereAppel").value+" • "+document.getElementById("horaireAppel").value;afficherAppel();window.scrollTo(0,document.getElementById("zoneAppel").offsetTop);}
+function afficherAppel(){
+let cl=document.getElementById("classeAppel").value;
+let list=triAZ(eleves.filter(e=>e.classe===cl));
+if(filtrerAppel){let f=filtrerAppel.toLowerCase();list=list.filter(e=>(e.nom+" "+e.prenom+" "+(e.parent||"")).toLowerCase().includes(f));}
+let div=document.getElementById("listeAppel");div.innerHTML="";
+if(!list.length) div.innerHTML="<i>Aucun élève trouvé pour : "+filtrerAppel+"</i>";
+let fullList=triAZ(eleves.filter(e=>e.classe===cl));
+list.forEach((e)=>{
+let idx=eleves.indexOf(e);
+let cls=e.absentJour?"student absent":"student";
+let badge=e.absentJour?'<span class="badge-rouge">❌ ABSENT - Clique pour remettre Présent</span>':'<span class="badge-vert">✅ PRÉSENT - Clique si Absent</span>';
+let numCls=e.absentJour?"numero absent":"numero";
+let pos=fullList.indexOf(e)+1;
+div.innerHTML+=`<div class="${cls}" onclick="cliquerAbsent(${idx})"><div class="${numCls}">${pos}</div><img src="${e.photo}" class="avatar"><div style="flex:1"><b style="color:#0b2a5b">${e.nom} ${e.prenom}</b> ${e.chef?'⭐ CHEF':''}<br>${badge}<br><small>Parent : ${e.parent||"-"} • ${e.tel||"-"}</small></div><b style="font-size:22px">${e.absentJour?'❌':'✅'}</b></div>`;
+});
+let absents=eleves.filter(e=>e.classe===cl && e.absentJour);
+document.getElementById("compteurAbsJour").innerText=absents.length;
+let mat=document.getElementById("matiereAppel").value, hor=document.getElementById("horaireAppel").value, jour=document.getElementById("jourAppel").value;
+if(!absents.length) document.getElementById("listeAbsJour").innerHTML="<p><i>Aucun absent 🎉</i></p>";
+else document.getElementById("listeAbsJour").innerHTML=absents.map((e,i)=>`<div style="display:flex;gap:8px;align-items:center;background:#fff;padding:8px;border-radius:10px;margin:5px 0"><img src="${e.photo}" style="width:36px;height:36px;border-radius:50%;object-fit:cover"><b>${i+1}. ${e.nom} ${e.prenom}</b><span style="font-size:12px">- Absent en ${mat} à ${hor} (${jour}) - Parent : ${e.parent||"-"} - ${e.tel||"-"}</span></div>`).join('');
 }
+function cliquerAbsent(idx){let e=eleves[idx];let mat=document.getElementById("matiereAppel").value, hor=document.getElementById("horaireAppel").value, jour=document.getElementById("jourAppel").value;e.absentJour=!e.absentJour;if(e.absentJour){e.absences.push({jour:jour,matiere:mat,horaire:hor,motif:"Absence Appel Rapide",obs:"Non Justifiée",date:new Date().toISOString()});}else{e.absences=e.absences.filter(a=>!(a.jour===jour && a.matiere===mat && a.horaire===hor && a.motif==="Absence Appel Rapide"));}save();afficherAppel();renderAll();}
+function validerAppel(){let cl=document.getElementById("classeAppel").value;let absents=eleves.filter(e=>e.classe===cl && e.absentJour);alert("✅ Appel validé pour "+cl+" !\nAbsents : "+absents.length+"\n"+absents.map(e=>e.nom+" "+e.prenom).join(", "));}
+function reinitialiserAppel(){if(confirm("Remettre tout le monde Présent ?")){let cl=document.getElementById("classeAppel").value;eleves.filter(e=>e.classe===cl).forEach(e=>e.absentJour=false);save();afficherAppel();renderAll();}}
 function renderAll(){
 let hc=document.getElementById("listeClasses");hc.innerHTML="";
-classes.forEach(c=>{let b=document.createElement("button");b.className="btn btn-gray";b.innerText=c;b.onclick=()=>{classeActive=c;document.getElementById("classeActive").innerText=c;document.getElementById("classeActive2").innerText=c;renderAll();};hc.appendChild(b);});
-let list=triAZ(eleves.filter(e=>e.classe===classeActive));
+classes.forEach(c=>{let b=document.createElement("button");b.className="btn btn-gray";b.innerText=c;b.onclick=()=>{classeActive=c;document.getElementById("classeActive").innerText=c;document.getElementById("classeActive2").innerText=c;document.getElementById("classeAppel").value=c;filtrerListe="";document.getElementById("rechercheEleve").value="";renderAll();};hc.appendChild(b);});
+let fullList=triAZ(eleves.filter(e=>e.classe===classeActive));
+let list=fullList;
+if(filtrerListe){let f=filtrerListe.toLowerCase();list=fullList.filter(e=>(e.nom+" "+e.prenom+" "+(e.parent||"")).toLowerCase().includes(f));}
 let div=document.getElementById("listeEleves");div.innerHTML="";
-document.getElementById("totalClasse").innerText="("+list.length+" élèves - A-Z)";
-list.forEach((e,i)=>{
-let nj=e.absences.filter(a=>a.obs==="Non Justifiée").length;
-let j=e.absences.filter(a=>a.obs==="Justifiée").length;
-let regle=parseInt(document.getElementById("reglePoints").value||2);
-let points=nj*regle;
-let alerte=nj>=parseInt(document.getElementById("seuilAbs").value||3) ? " 🚨 ALERTE" : "";
-let d=document.createElement("div");d.className="student"+(alerte?" alert":"");
-d.innerHTML=`<div class="numero">${i+1}</div><img src="${e.photo}" class="avatar"><div style="flex:1"><b style="color:#0b2a5b;font-size:15px">${e.nom} ${e.prenom}</b> ${e.chef?'⭐ CHEF':''}<br><small><span class="badge-vert">${j} ✅ Justifiées</span> <span class="badge-rouge">${nj} ❌ Non Justifiées</span> • <b style="color:#e11d48">-${points} points</b>${alerte}</small><br><small>👨 Parent : ${e.parent||"-"} • 📞 ${e.tel||"-"}</small><br><small>Coché par ${currentUser||""}</small></div><button class="btn btn-blue" onclick="ouvrirFiche(${e.id})">VOIR FICHE</button>`;
+document.getElementById("totalClasse").innerText="("+fullList.length+" élèves - A-Z"+(filtrerListe?" • "+list.length+" trouvés":"")+")";
+if(!list.length) div.innerHTML="<p><i>Aucun élève trouvé pour : "+filtrerListe+"</i></p>";
+list.forEach((e)=>{
+let i=fullList.indexOf(e);
+let nj=e.absences.filter(a=>a.obs==="Non Justifiée").length;let j=e.absences.filter(a=>a.obs==="Justifiée").length;let regle=parseInt(document.getElementById("reglePoints").value||2);let points=nj*regle;let alerte=nj>=parseInt(document.getElementById("seuilAbs").value||3) ? " 🚨 ALERTE" : "";
+let d=document.createElement("div");d.className="student";d.style.cursor="default";
+d.innerHTML=`<div class="numero">${i+1}</div><img src="${e.photo}" class="avatar"><div style="flex:1"><b style="color:#0b2a5b;font-size:15px">${e.nom} ${e.prenom}</b> ${e.chef?'⭐ CHEF':''}<br><small><span class="badge-vert">${j} ✅</span> <span class="badge-rouge">${nj} ❌</span> • <b style="color:#e11d48">-${points} pts</b>${alerte}</small><br><small>👨 Parent : ${e.parent||"-"} • 📞 ${e.tel||"-"}</small><br><small>Coché par ${currentUser||""}</small></div><button class="btn btn-blue" onclick="ouvrirFiche(${e.id})">VOIR FICHE</button>`;
 div.appendChild(d);
 });
-let ex=document.getElementById("listeExpulses");ex.innerHTML="";
-if(expulses.length===0) ex.innerHTML="<i>Aucun expulsé</i>";
-expulses.forEach(e=>{ex.innerHTML+=`<div class="student"><img src="${e.photo}" class="avatar"><div style="flex:1"><b>${e.nom} ${e.prenom} - ${e.classe}</b><br><small>Expulsé • ${e.motifExp||""}</small></div><button class="btn btn-green" onclick="remettreExpulse(${e.id})">🔙 REMETTRE</button></div>`;});
-let ab=document.getElementById("listeAbandons");ab.innerHTML="";
-if(abandons.length===0) ab.innerHTML="<i>Aucun abandon pour le moment</i>";
-abandons.forEach(e=>{ab.innerHTML+=`<div class="student" style="background:#fff7ed;border:1px solid #fb923c"><img src="${e.photo}" class="avatar"><div style="flex:1"><b>${e.nom} ${e.prenom} - ${e.classe}</b><br><small>🏃 Abandon • ${e.motifAbandon||""} • ${e.dateAbandon||""}</small><br><small>Parent : ${e.parent||"-"} • Tel : ${e.tel||"-"}</small></div><button class="btn btn-green" onclick="remettreAbandon(${e.id})">🔙 REMETTRE EN CLASSE</button></div>`;});
+let ex=document.getElementById("listeExpulses");ex.innerHTML="";if(expulses.length===0) ex.innerHTML="<i>Aucun expulsé</i>";expulses.forEach(e=>{ex.innerHTML+=`<div class="student"><img src="${e.photo}" class="avatar"><div style="flex:1"><b>${e.nom} ${e.prenom} - ${e.classe}</b><br><small>Expulsé • ${e.motifExp||""}</small></div><button class="btn btn-green" onclick="remettreExpulse(${e.id})">🔙 REMETTRE</button></div>`;});
+let ab=document.getElementById("listeAbandons");ab.innerHTML="";if(abandons.length===0) ab.innerHTML="<i>Aucun abandon</i>";abandons.forEach(e=>{ab.innerHTML+=`<div class="student" style="background:#fff7ed;border:1px solid #fb923c"><img src="${e.photo}" class="avatar"><div style="flex:1"><b>${e.nom} ${e.prenom} - ${e.classe}</b><br><small>🏃 Abandon • ${e.motifAbandon||""} • ${e.dateAbandon||""}</small><br><small>Parent : ${e.parent||"-"} • Tel : ${e.tel||"-"}</small></div><button class="btn btn-green" onclick="remettreAbandon(${e.id})">🔙 REMETTRE EN CLASSE</button></div>`;});
 calculerBilan();calculerAlertes();
 }
-function ouvrirFiche(id){
-eleveOuvert=eleves.find(e=>e.id===id);if(!eleveOuvert) return;
-document.getElementById("fiche").classList.remove("hidden");
-let listeTriee=triAZ(eleves.filter(e=>e.classe===eleveOuvert.classe));
-let idx=listeTriee.indexOf(eleveOuvert)+1;
-document.getElementById("ficheTitre").innerText=`FICHE N°${idx} - ${eleveOuvert.nom} ${eleveOuvert.prenom} - ${eleveOuvert.classe} ✨`;
-let h=`<div style="text-align:center"><img src="${eleveOuvert.photo}" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:4px solid gold;box-shadow:0 4px 12px rgba(0,0,0,.2)"></div><p style="text-align:center"><b>${eleveOuvert.nom} ${eleveOuvert.prenom}</b><br>Parent : ${eleveOuvert.parent||"-"} • Tel : ${eleveOuvert.tel||"-"}</p><table><tr><th>Jour</th><th>Matière</th><th>Horaire</th><th>Motif</th><th>Observation</th></tr>`;
-eleveOuvert.absences.forEach(a=>{h+=`<tr><td>${a.jour}</td><td><b>${a.matiere||"-"}</b></td><td>${a.horaire}</td><td>${a.motif}</td><td>${a.obs==="Justifiée"?"✅ Justifiée":"❌ Non Justifiée"}</td></tr>`;});
-h+="</table>";document.getElementById("ficheContenu").innerHTML=h;
-window.scrollTo(0,document.getElementById("fiche").offsetTop);
-}
+function ouvrirFiche(id){eleveOuvert=eleves.find(e=>e.id===id);if(!eleveOuvert) return;document.getElementById("fiche").classList.remove("hidden");let listeTriee=triAZ(eleves.filter(e=>e.classe===eleveOuvert.classe));let idx=listeTriee.indexOf(eleveOuvert)+1;document.getElementById("ficheTitre").innerText=`FICHE N°${idx} - ${eleveOuvert.nom} ${eleveOuvert.prenom} - ${eleveOuvert.classe} ✨`;let h=`<div style="text-align:center"><img src="${eleveOuvert.photo}" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:4px solid gold"></div><p style="text-align:center"><b>${eleveOuvert.nom} ${eleveOuvert.prenom}</b><br>Parent : ${eleveOuvert.parent||"-"} • Tel : ${eleveOuvert.tel||"-"}</p><table><tr><th>Jour</th><th>Matière</th><th>Horaire</th><th>Motif</th><th>Observation</th></tr>`;eleveOuvert.absences.forEach(a=>{h+=`<tr><td>${a.jour}</td><td><b>${a.matiere||"-"}</b></td><td>${a.horaire}</td><td>${a.motif}</td><td>${a.obs==="Justifiée"?"✅ Justifiée":"❌ Non Justifiée"}</td></tr>`;});h+="</table>";document.getElementById("ficheContenu").innerHTML=h;window.scrollTo(0,document.getElementById("fiche").offsetTop);}
 function fermerFiche(){document.getElementById("fiche").classList.add("hidden");}
-function ajouterAbsence(){if(verrouille){alert("🔒 Année verrouillée !");return;}if(!eleveOuvert) return;eleveOuvert.absences.push({jour:document.getElementById("jourAbs").value,matiere:document.getElementById("matiereAbs").value,horaire:document.getElementById("horaireAbs").value,motif:document.getElementById("motifAbs").value,obs:document.getElementById("obsAbs").value,date:new Date().toISOString()});save();ouvrirFiche(eleveOuvert.id);renderAll();alert("✅ Absence enregistrée : "+document.getElementById("matiereAbs").value+" à "+document.getElementById("horaireAbs").value);}
+function ajouterAbsence(){if(verrouille){alert("🔒 Verrouillé !");return;}if(!eleveOuvert) return;eleveOuvert.absences.push({jour:document.getElementById("jourAbs").value,matiere:document.getElementById("matiereAbs").value,horaire:document.getElementById("horaireAbs").value,motif:document.getElementById("motifAbs").value,obs:document.getElementById("obsAbs").value,date:new Date().toISOString()});save();ouvrirFiche(eleveOuvert.id);renderAll();alert("✅ Absence : "+document.getElementById("matiereAbs").value+" à "+document.getElementById("horaireAbs").value);}
 function expulserEleve(){if(verrouille){alert("🔒 Verrouillé");return;}let motif=prompt("Motif d'expulsion :");if(!motif) return;expulses.push({...eleveOuvert,motifExp:motif});eleves=eleves.filter(e=>e.id!==eleveOuvert.id);save();fermerFiche();renderAll();}
 function remettreExpulse(id){let e=expulses.find(x=>x.id===id);expulses=expulses.filter(x=>x.id!==id);e.absences=e.absences||[];eleves.push(e);save();renderAll();}
-function abandonnerEleve(){if(verrouille){alert("🔒 Verrouillé");return;}let motif=prompt("Motif d'abandon : Ex: Parti à Bobo, Déménagement...");if(!motif) return;abandons.push({...eleveOuvert,motifAbandon:motif,dateAbandon:new Date().toLocaleDateString()});eleves=eleves.filter(e=>e.id!==eleveOuvert.id);save();fermerFiche();renderAll();alert("🏃 Élève mis en ABANDON : "+eleveOuvert.prenom+" - Motif : "+motif);}
+function abandonnerEleve(){if(verrouille){alert("🔒 Verrouillé");return;}let motif=prompt("Motif d'abandon : Ex: Parti à Bobo...");if(!motif) return;abandons.push({...eleveOuvert,motifAbandon:motif,dateAbandon:new Date().toLocaleDateString()});eleves=eleves.filter(e=>e.id!==eleveOuvert.id);save();fermerFiche();renderAll();alert("🏃 Abandon : "+eleveOuvert.prenom+" - "+motif);}
 function remettreAbandon(id){let e=abandons.find(x=>x.id===id);abandons=abandons.filter(x=>x.id!==id);e.absences=e.absences||[];eleves.push(e);save();renderAll();}
 function calculerBilan(){let regle=parseInt(document.getElementById("reglePoints").value||2);let list=triAZ(eleves.filter(e=>e.classe===classeActive));let h=`<table><tr><th>N°</th><th>Élève</th><th>Non Justifiées</th><th>Points à retirer</th></tr>`;list.forEach((e,i)=>{let nj=e.absences.filter(a=>a.obs==="Non Justifiée").length;h+=`<tr><td><b>${i+1}</b></td><td>${e.nom} ${e.prenom}</td><td>${nj}</td><td><b>-${nj*regle} points</b></td></tr>`;});h+="</table>";document.getElementById("bilan").innerHTML=h;}
-function calculerAlertes(){let seuil=parseInt(document.getElementById("seuilAbs").value||3);let zone=document.getElementById("alertes");zone.innerHTML="";eleves.forEach(e=>{let nj=e.absences.filter(a=>a.obs==="Non Justifiée").length;if(nj>=seuil){zone.innerHTML+=`<div class="alert card">🚨 <b>${e.nom} ${e.prenom} - ${e.classe}</b> : ${nj} Non Justifiées → ATTENTION CONSEILLER → Envoyer convocation</div>`;}});if(!zone.innerHTML) zone.innerHTML="<i>Aucune alerte pour le moment ✅</i>";}
+function calculerAlertes(){let seuil=parseInt(document.getElementById("seuilAbs").value||3);let zone=document.getElementById("alertes");zone.innerHTML="";eleves.forEach(e=>{let nj=e.absences.filter(a=>a.obs==="Non Justifiée").length;if(nj>=seuil){zone.innerHTML+=`<div class="alert card">🚨 <b>${e.nom} ${e.prenom} - ${e.classe}</b> : ${nj} Non Justifiées → Envoyer convocation</div>`;}});if(!zone.innerHTML) zone.innerHTML="<i>Aucune alerte ✅</i>";}
 function genererConvocation(){if(!eleveOuvert) return;let nj=eleveOuvert.absences.filter(a=>a.obs==="Non Justifiée").length;let dernier=eleveOuvert.absences[eleveOuvert.absences.length-1];document.getElementById("convocationZone").innerHTML=`<div class="card" style="border:2px solid #0b2a5b"><b>LYCÉE RÉGIONAL DE HOUNDÉ - CONVOCATION</b><br>Parent de : ${eleveOuvert.nom} ${eleveOuvert.prenom} - ${eleveOuvert.classe}<br>Tel parent : ${eleveOuvert.tel}<br>Votre enfant a fait ${nj} absences Non Justifiées.<br>Dernière absence : ${dernier?dernier.matiere+" à "+dernier.horaire+" ("+dernier.jour+")":"-"}<br>Prière de vous présenter au bureau du Conseiller.<br>Signé : ${noms.conseiller}, Conseiller<br><a target="_blank" href="https://wa.me/226${eleveOuvert.tel||''}?text=${encodeURIComponent("Bonjour, convocation LYCÉE RÉGIONAL DE HOUNDÉ pour "+eleveOuvert.prenom)}"><button class="btn btn-green">🟢 ENVOYER SUR WHATSAPP AU PARENT</button></a></div>`;}
 document.addEventListener("visibilitychange",()=>{if(document.hidden){document.body.style.filter="blur(12px)";}else{document.body.style.filter="none";}});
 document.addEventListener("contextmenu",e=>{e.preventDefault();alert("⛔ Copie / Capture bloquée - LYCÉE RÉGIONAL DE HOUNDÉ");});
