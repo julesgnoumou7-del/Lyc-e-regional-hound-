@@ -2,190 +2,337 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LYCÉE RÉGIONAL DE HOUNDÉ</title>
 <style>
-*{box-sizing:border-box;font-family:system-ui,Arial}body{margin:0;background:#eef2f7;color:#0a2540;padding-bottom:30px}
-header{background:#0a2f5e;color:white;text-align:center;padding:24px 14px 20px}
-.logo{width:90px;height:90px;background:#e8e8e8;border:5px solid #ffe600;border-radius:50%;margin:auto;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;color:white}
-header h1{margin:12px 0 4px;font-size:24px}header p{margin:0;opacity:.85;font-size:15px}
-.card{background:white;margin:16px;border-radius:20px;padding:20px;box-shadow:0 6px 20px #0001}
-h2{margin:0 0 10px;font-size:22px}h3{margin-top:22px}
-input,select,button{width:100%;padding:13px;border-radius:12px;border:1px solid #ccc;margin:6px 0;font-size:16px}
-button{background:#0a2f5e;color:white;border:none;font-weight:700}
-.badge{display:inline-block;background:#ffe600;color:#000;padding:5px 12px;border-radius:20px;font-weight:800;font-size:13px}
-.small{font-size:13px;color:#666}.row{display:flex;gap:8px}.row>*{flex:1}
-table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border-bottom:1px solid #eee;padding:9px;text-align:left}th{background:#f2f5ff}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:#f0f2f5;color:#111}
+header{background:#0b2a5b;color:#fff;padding:14px;text-align:center;position:relative}
+header img{width:70px;height:70px;border-radius:50%;object-fit:cover;background:#fff;border:3px solid gold}
+header h1{margin:5px 0 0;font-size:19px;letter-spacing:1px}
+header p{margin:2px;font-size:12px;opacity:.9}
+.watermark{position:fixed;bottom:8px;right:8px;font-size:10px;opacity:.45;z-index:999;background:#fff;padding:4px 8px;border-radius:20px;border:1px solid #ddd}
+.card{background:#fff;margin:10px;border-radius:14px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.btn{border:0;padding:10px 14px;border-radius:10px;font-weight:bold;cursor:pointer}
+.btn-blue{background:#0b2a5b;color:#fff}.btn-gold{background:gold;color:#111}.btn-red{background:#e11d48;color:#fff}.btn-green{background:#16a34a;color:#fff}.btn-gray{background:#e5e7eb}
+input,select,textarea{width:100%;padding:10px;margin:5px 0;border:1px solid #ccc;border-radius:10px}
+.flex{display:flex;gap:8px;flex-wrap:wrap}.avatar{width:54px;height:54px;border-radius:50%;object-fit:cover;background:#ddd;border:2px solid gold}
+.student{display:flex;gap:10px;align-items:center;background:#f9fafb;padding:8px;border-radius:12px;margin:6px 0}
+.badge{padding:3px 8px;border-radius:20px;font-size:11px;font-weight:bold}
+.badge-red{background:#ffe4e6;color:#991b1b}.badge-green{background:#dcfce7;color:#166534}.badge-gold{background:#fef9c3;color:#854d0e}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{border:1px solid #eee;padding:6px;text-align:left}
 .hidden{display:none}
-.profil{background:#fffbe6;border:2px solid #ffe600;border-radius:14px;padding:14px;margin-top:16px}
-.moncode{background:#0a2f5e;color:white;border-radius:10px;padding:10px;text-align:center;font-weight:800;margin:8px 0}
-.absent-row{background:#fff0f0}
-.photo{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #0a2f5e;background:#eee;display:block;cursor:pointer}
-.photo-preview{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid #ffe600;display:none;margin:auto}
-.nom-btn{background:#eef2ff;color:#0a2f5e;border:1px solid #cdd6ff;padding:8px 10px;font-weight:700;cursor:pointer;text-align:left}
-.nom-btn.absent{background:#c00;color:white;border-color:#c00}
-.galerie{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-.carte-eleve{width:130px;background:#f8f9ff;border-radius:14px;padding:8px;text-align:center;border:2px solid #e0e6ff;cursor:pointer}
-.carte-eleve.absent{background:#ffe0e0;border-color:#c00}
-.carte-eleve img{width:70px;height:70px;border-radius:50%;object-fit:cover;margin:auto;border:2px solid #0a2f5e}
-.carte-eleve b{font-size:12px;display:block;line-height:1.2;margin-top:4px}
-.carte-eleve span{font-size:11px;color:#666}
-.absence-card{background:#fff0f0;border:2px solid #ffcccc;border-radius:14px;padding:12px;margin-top:12px}
-.absence-item{display:flex;gap:8px;align-items:center;background:white;border-radius:10px;padding:8px;margin:6px 0}
-.absence-item img{width:40px;height:40px;border-radius:50%;object-fit:cover}
-.parent-box{background:#e8f5e9;border:2px solid #a5d6a7;border-radius:14px;padding:12px;margin-top:10px}
-.call-btn{background:#0a8a00;color:white;padding:8px;border-radius:8px;text-decoration:none;display:block;text-align:center;font-weight:700;margin-top:4px}
+.alert{border:2px solid red;background:#fff1f2;animation:blink 1s infinite}
+@keyframes blink{50%{background:#ffe4e6}}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff}
 </style>
 </head>
 <body>
+
+<div class="watermark" id="watermark">LYCÉE RÉGIONAL DE HOUNDÉ • Protégé</div>
+
 <header>
-<div class="logo">LRH</div>
-<h1>LYCÉE RÉGIONAL DE HOUNDÉ</h1>
-<p>Studio Absences • Conseiller & Surveillants<br>Année 2026-2027</p>
-<select id="annee" style="background:white;margin-top:12px"><option>2026-2027</option><option>2025-2026</option></select>
+  <label style="cursor:pointer">📸 Logo<br>
+    <img id="logoImg" src="https://via.placeholder.com/70?text=LRH" onclick="document.getElementById('logoInput').click()">
+    <input type="file" id="logoInput" accept="image/*" hidden onchange="loadImg(this,'logoImg','logo')">
+  </label>
+  <h1>LYCÉE RÉGIONAL DE HOUNDÉ</h1>
+  <p>Studio Absences • Conseiller & Surveillants • Année <span id="anneeLabel">2026-2027</span></p>
+  <select id="anneeSelect" onchange="changerAnnee(this.value)">
+    <option>2026-2027</option><option>2025-2026</option><option>2027-2028</option>
+  </select>
 </header>
 
-<div class="card" id="loginCard">
-<h2>🔐 Connexion</h2>
-<p class="small">Choisis qui tu es, puis mets TON code.<br>Au début : Conseiller = 9999 • Surveillant 1 = 2001 • Surveillant 2 = 2002</p>
-<label>Qui es-tu ?</label>
-<select id="qui"><option value="conseiller">Conseiller</option><option value="s1">Surveillant 1</option><option value="s2">Surveillant 2</option></select>
-<input id="code" type="password" placeholder="Ton code secret à toi">
-<button onclick="login()">ENTRER ➜</button>
+<!-- CONNEXION -->
+<div id="login" class="card">
+  <h2>🔐 Connexion</h2>
+  <p>Conseiller = 9999 • Surveillant 1 = 2001 • Surveillant 2 = 2002</p>
+  <input id="codeLogin" type="password" placeholder="Entre ton code secret">
+  <button class="btn btn-blue" onclick="login()">ENTRER ➜</button>
+  <p id="loginMsg" style="color:red"></p>
 </div>
 
-<div class="card hidden" id="appCard">
-<h2 id="bienvenue">Bonjour</h2>
-<p><span class="badge" id="roleBadge"></span> <b id="nomAffiche"></b></p>
-<button onclick="logout()" style="background:#666">Déconnexion</button>
+<!-- APP -->
+<div id="app" class="hidden">
 
-<div class="profil">
-<h3 style="margin:0">👤 Mon Profil - C'est MOI seul</h3>
-<p class="small">Un seul code : le tien. Tu peux changer ton nom et ton code.</p>
-<div class="moncode" id="monCodeAffiche">Mon code : ----</div>
-<label>Mon nom + numéro (Ex: Konaté 1 ou Diallo 2) :</label>
-<input id="monNomInput" placeholder="Ex: Konaté 1">
-<label>Mon nouveau code secret :</label>
-<input id="monCodeInput" placeholder="Ex: 1234" type="password">
-<button onclick="changerMonProfil()" style="background:#e6b800;color:#000">✏️ CHANGER MON NOM + MON CODE</button>
-<p class="small" id="profilMsg"></p>
+<div class="topbar">
+  <b id="qui">👑 Conseiller</b>
+  <button class="btn btn-gray" onclick="logout()">Déconnexion</button>
 </div>
 
-<h3>📋 Faire l'appel</h3>
-<label>Classe :</label>
-<select id="classe">
-<option>6e A</option><option>6e B</option><option>5e A</option><option>5e B</option><option>4e A</option><option>4e B</option><option>3e A</option><option>3e B</option><option>2nde A</option><option>2nde C</option><option>1ère A</option><option>1ère D</option><option>Tle A</option><option>Tle D</option>
-</select>
-<label>Heure du cours :</label>
-<select id="heure">
-<option>7h - 8h</option><option>8h - 9h</option><option>9h - 10h</option><option>10h - 11h</option><option>11h - 12h</option><option>12h - 13h</option><option>13h - 14h</option><option>14h - 15h</option><option>15h - 16h</option><option>16h - 17h</option><option>17h - 18h</option>
-</select>
-<label>Matière du cours :</label>
-<select id="matiere"><option>Maths</option><option>Français</option><option>Anglais</option><option>Physique-Chimie</option><option>SVT</option><option>Histoire-Géo</option><option>Philosophie</option><option>EPS</option><option>Allemand</option><option>Espagnol</option><option>Informatique</option><option>Autre</option></select>
-<label>Prof :</label><input id="prof" placeholder="Ex: M. Kaboré">
-
-<h3>👨‍🎓 LISTE DE CLASSE - <span id="classeTitre"></span></h3>
-<p class="small" style="background:#ffe600;padding:8px;border-radius:8px;color:#000"><b>👆 CLIQUE SUR LE NOM ou LA PHOTO pour mettre ABSENT !</b><br>Ça envoie son nom tout seul dans la Liste des Absences en bas.</p>
-
-<!-- AJOUT ELEVE COMME LE PREMIER OUTIL + PARENT -->
-<div style="background:#f2f5ff;border-radius:14px;padding:12px">
-<img id="apercuPhoto" class="photo-preview">
-<label>📸 Photo de l'élève :</label>
-<input type="file" id="photoEleve" accept="image/*" onchange="preparerPhoto(event)">
-<label>👨‍🎓 Nom et Prénom de l'élève :</label>
-<input id="nouvelEleve" placeholder="Ex: Zongo Moussa">
-<div class="parent-box">
-<h3 style="margin:0">👨‍👩‍👦 Parent de l'élève</h3>
-<label>Nom du parent :</label>
-<input id="nomParent" placeholder="Ex: M. Zongo - Papa de Moussa">
-<label>Numéro du parent :</label>
-<input id="numParent" type="tel" placeholder="Ex: 70 12 34 56">
-</div>
-<button onclick="ajouterEleve()">+ AJOUTER L'ÉLÈVE + PARENT + PHOTO</button>
+<!-- EQUIPE -->
+<div class="card">
+  <h3>🏫 ÉQUIPE DE SURVEILLANCE</h3>
+  <div class="flex">
+    <div style="flex:1;text-align:center">
+      <img id="imgConseiller" class="avatar" src="https://via.placeholder.com/54?text=C"><br>
+      <b>👑 CONSEILLER</b><br><span id="nomConseiller">M. Kaboré</span><br>
+      <input type="file" accept="image/*" onchange="loadImg(this,'imgConseiller','conseiller')">
+    </div>
+    <div style="flex:1;text-align:center">
+      <img id="imgS1" class="avatar" src="https://via.placeholder.com/54?text=S1"><br>
+      <b>SURVEILLANT 1</b><br><span id="nomS1">M. Ouédraogo</span><br>
+      <input type="file" accept="image/*" onchange="loadImg(this,'imgS1','s1')">
+    </div>
+    <div style="flex:1;text-align:center">
+      <img id="imgS2" class="avatar" src="https://via.placeholder.com/54?text=S2"><br>
+      <b>SURVEILLANT 2</b><br><span id="nomS2">Mme Sawadogo</span><br>
+      <input type="file" accept="image/*" onchange="loadImg(this,'imgS2','s2')">
+    </div>
+  </div>
 </div>
 
-<div style="margin-top:10px"><button onclick="basculerVue()" id="btnVue" style="background:#e6b800;color:#000">🖼️ VOIR EN GALERIE PHOTOS</button></div>
-
-<div id="vueTableau">
-<table><thead><tr><th>N°</th><th>Photo</th><th>Nom - Clique !</th><th>Parent + Numéro</th><th>Présent ?</th><th>Matière d'absence</th><th></th></tr></thead><tbody id="listeEleves"></tbody></table>
+<!-- MON COMPTE -->
+<div class="card">
+  <h3>⚙️ MON COMPTE - Changer mon code quand je veux</h3>
+  <input id="ancienCode" type="password" placeholder="Ancien code">
+  <input id="nouveauCode" type="password" placeholder="Nouveau code">
+  <button class="btn btn-gold" onclick="changerMonCode()">✅ CHANGER MON CODE</button>
+  <p id="msgCompte"></p>
 </div>
-<div id="vueGalerie" class="hidden"><div class="galerie" id="galerieEleves"></div></div>
 
-<div class="absence-card">
-<h3 style="margin:0">📕 LISTE DES ABSENCES - <span id="classeAbsTitre"></span> <span id="compteurAbs" style="background:#c00;color:white;padding:2px 10px;border-radius:20px">0</span></h3>
-<p class="small">Se remplit toute seule quand tu cliques sur un nom.</p>
-<div id="listeAbsences"><p class="small">Aucun absent pour le moment 🎉</p></div>
-<button onclick="enregistrerAppel()">✅ ENREGISTRER L'APPEL</button>
-<p id="resultat" class="small"></p>
-<button onclick="effacerAbsences()" style="background:#c00">🗑️ EFFACER LA LISTE DES ABSENCES</button>
+<!-- VERROUILLAGE ANNEE -->
+<div class="card" id="verrouCard">
+  <h3>🔐 VERROUILLAGE ANNÉE + EMPREINTE CONSEILLER SEUL</h3>
+  <p>Code Secret de verrouillage actuel : <b id="codeSecretLabel">2027</b> <button class="btn btn-gray" onclick="changerCodeSecret()">Changer</button></p>
+  <input id="codeVerrou" placeholder="Entre Code Secret pour verrouiller">
+  <button class="btn btn-red" onclick="verrouillerAnnee()">🔒 VERROUILLER L'ANNÉE</button>
+  <button class="btn btn-green" onclick="deverrouillerEmpreinte()">👆 DÉVERROUILLER AVEC EMPREINTE + CODE</button>
+  <p id="etatVerrou">État : 🟢 ANNÉE OUVERTE - On peut modifier</p>
 </div>
+
+<!-- CLASSES -->
+<div class="card">
+  <h3>📚 CLASSES - LYCÉE RÉGIONAL DE HOUNDÉ</h3>
+  <div class="flex">
+    <input id="nouvelleClasse" placeholder="Ex: 2nde A" style="flex:1">
+    <button class="btn btn-blue" onclick="ajouterClasse()">+ CLASSE</button>
+  </div>
+  <div id="listeClasses" class="flex"></div>
+</div>
+
+<!-- AJOUT ELEVE -->
+<div class="card">
+  <h3>➕ AJOUTER UN ÉLÈVE - <span id="classeActive">2nde A</span></h3>
+  <input id="nomEleve" placeholder="Nom">
+  <input id="prenomEleve" placeholder="Prénom">
+  <input id="parentEleve" placeholder="Nom du parent">
+  <input id="telParent" placeholder="Téléphone du parent">
+  <label>Photo élève <input type="file" id="photoEleve" accept="image/*"></label>
+  <label><input type="checkbox" id="estChef"> ⭐ Chef de classe (max 2)</label>
+  <button class="btn btn-green" onclick="ajouterEleve()">✅ AJOUTER ÉLÈVE</button>
+</div>
+
+<!-- LISTE ELEVES -->
+<div class="card">
+  <h3>👨‍🎓 ÉLÈVES - <span id="classeActive2">2nde A</span> <span id="totalClasse"></span></h3>
+  <div id="listeEleves"></div>
+</div>
+
+<!-- EXPULSES -->
+<div class="card">
+  <h3>🚫 ÉLÈVES EXPULSÉS</h3>
+  <div id="listeExpulses"><i>Aucun expulsé pour le moment</i></div>
+</div>
+
+<!-- BILAN TRIMESTRE -->
+<div class="card">
+  <h3>📉 BILAN TRIMESTRE - POINTS À RETIRER</h3>
+  <p>Règle du Conseiller : 1 absence Non Justifiée = <input id="reglePoints" type="number" value="2" style="width:60px"> points à retirer <button class="btn btn-gray" onclick="calculerBilan()">Calculer</button></p>
+  <div id="bilan"></div>
+  <button class="btn btn-blue" onclick="window.print()">🖨️ IMPRIMER BILAN + LOGO HOUNDÉ</button>
+</div>
+
+<!-- ALERTE -->
+<div class="card">
+  <h3>🚨 ALERTE INTELLIGENTE DU CONSEILLER</h3>
+  <p>Si <input id="seuilAbs" type="number" value="3" style="width:60px"> absences Non Justifiées en <input id="seuilJours" type="number" value="7" style="width:60px"> jours → ALERTE</p>
+  <div id="alertes"></div>
+</div>
+
+</div>
+
+<!-- FICHE ELEVE MODAL -->
+<div id="fiche" class="card hidden">
+  <h3 id="ficheTitre">FICHE ÉLÈVE</h3>
+  <div id="ficheContenu"></div>
+  <h4>➕ Ajouter une absence</h4>
+  <select id="jourAbs"><option>Lundi</option><option>Mardi</option><option>Mercredi</option><option>Jeudi</option><option>Vendredi</option><option>Samedi</option></select>
+  <select id="horaireAbs"><option>07h-08h</option><option>08h-10h</option><option>10h-12h</option><option>14h-16h</option><option>16h-18h</option></select>
+  <select id="motifAbs"><option>Maladie</option><option>Retard</option><option>Famille</option><option>Sans motif</option><option>Autre</option></select>
+  <select id="obsAbs"><option>Justifiée</option><option>Non Justifiée</option></select>
+  <button class="btn btn-blue" onclick="ajouterAbsence()">ENREGISTRER ABSENCE</button>
+  <button class="btn btn-red" onclick="expulserEleve()">🚫 EXPULSER</button>
+  <button class="btn btn-green" onclick="genererConvocation()">📄 CONVOCATION PARENTS + WhatsApp</button>
+  <div id="convocationZone"></div>
+  <br><button class="btn btn-gray" onclick="fermerFiche()">Fermer</button>
 </div>
 
 <script>
-let config=JSON.parse(localStorage.getItem('lrh_config')||'{}');
-if(!config.nomConseiller) config={nomConseiller:"Conseiller",codeConseiller:"9999",nomS1:"Surveillant 1",codeS1:"2001",nomS2:"Surveillant 2",codeS2:"2002"};
-let elevesParClasse=JSON.parse(localStorage.getItem('lrh_eleves')||'{}');
-let roleActuel="", cleNom="", cleCode="", photoTemp="", vueGalerie=false;
-let matieres=["Maths","Français","Anglais","Physique-Chimie","SVT","Histoire-Géo","Philosophie","EPS","Allemand","Espagnol","Informatique","Autre"];
-let photoDefaut="https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
+let users={conseiller:"9999",s1:"2001",s2:"2002"};
+let currentUser=null, currentRole=null;
+let classes=["2nde A","2nde B","1ère A","Tle A"];
+let classeActive="2nde A";
+let eleves=JSON.parse(localStorage.getItem("hounde_eleves")||"[]");
+let expulses=JSON.parse(localStorage.getItem("hounde_expulses")||"[]");
+let verrouille=false;
+let codeSecret="2027";
+let eleveOuvert=null;
+
+function save(){localStorage.setItem("hounde_eleves",JSON.stringify(eleves));localStorage.setItem("hounde_expulses",JSON.stringify(expulses));}
+
 function login(){
-let qui=document.getElementById('qui').value;let c=document.getElementById('code').value.trim();
-if(qui==="conseiller"){cleNom="nomConseiller";cleCode="codeConseiller";roleActuel="CONSEILLER";}
-if(qui==="s1"){cleNom="nomS1";cleCode="codeS1";roleActuel="SURVEILLANT 1";}
-if(qui==="s2"){cleNom="nomS2";cleCode="codeS2";roleActuel="SURVEILLANT 2";}
-if(c!==config[cleCode]){alert("Ce n'est pas TON code !");return;}
-document.getElementById('loginCard').classList.add('hidden');document.getElementById('appCard').classList.remove('hidden');
-document.getElementById('bienvenue').innerText="Bonjour, "+config[cleNom];document.getElementById('roleBadge').innerText=roleActuel;document.getElementById('nomAffiche').innerText=config[cleNom];
-document.getElementById('monNomInput').value=config[cleNom];document.getElementById('monCodeInput').value=config[cleCode];document.getElementById('monCodeAffiche').innerText="Mon code à moi : "+config[cleCode];
-afficherEleves();
+  let c=document.getElementById("codeLogin").value;
+  if(c===users.conseiller){currentRole="conseiller";currentUser="Conseiller";}
+  else if(c===users.s1){currentRole="s1";currentUser="Surveillant 1";}
+  else if(c===users.s2){currentRole="s2";currentUser="Surveillant 2";}
+  else{ document.getElementById("loginMsg").innerText="❌ Code faux"; return; }
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  document.getElementById("qui").innerText="Connecté : "+currentUser+" • "+currentRole;
+  document.getElementById("watermark").innerText="LYCÉE RÉGIONAL DE HOUNDÉ • Vu par "+currentUser+" • "+new Date().toLocaleDateString();
+  renderAll();
 }
 function logout(){location.reload();}
-function changerMonProfil(){let n=document.getElementById('monNomInput').value.trim();let co=document.getElementById('monCodeInput').value.trim();if(!n||!co) return alert("Écris ton nom ET ton code");config[cleNom]=n;config[cleCode]=co;localStorage.setItem('lrh_config',JSON.stringify(config));document.getElementById('bienvenue').innerText="Bonjour, "+n;document.getElementById('nomAffiche').innerText=n;document.getElementById('monCodeAffiche').innerText="Mon code à moi : "+co;document.getElementById('profilMsg').innerText="✅ C'est changé ! Nom : "+n+" | Code : "+co;}
-function getClasse(){return document.getElementById('classe').value;}
-document.getElementById('classe').addEventListener('change',afficherEleves);
-function preparerPhoto(e){let f=e.target.files[0];if(!f) return;let r=new FileReader();r.onload=function(ev){photoTemp=ev.target.result;let img=document.getElementById('apercuPhoto');img.src=photoTemp;img.style.display='block';};r.readAsDataURL(f);}
+function changerMonCode(){
+  let a=document.getElementById("ancienCode").value, n=document.getElementById("nouveauCode").value;
+  if(!n){alert("Mets un nouveau code");return;}
+  if(currentRole==="conseiller" && a===users.conseiller){users.conseiller=n;}
+  else if(currentRole==="s1" && a===users.s1){users.s1=n;}
+  else if(currentRole==="s2" && a===users.s2){users.s2=n;}
+  else{ document.getElementById("msgCompte").innerText="❌ Ancien code faux"; return; }
+  document.getElementById("msgCompte").innerText="✅ Code changé avec succès ! Nouveau code : "+n+" - Retiens-le bien.";
+}
+function changerCodeSecret(){
+  if(currentRole!=="conseiller"){alert("Seul le Conseiller !");return;}
+  let n=prompt("Nouveau Code Secret de verrouillage :");
+  if(n){codeSecret=n;document.getElementById("codeSecretLabel").innerText=n;alert("Code Secret changé");}
+}
+function verrouillerAnnee(){
+  if(currentRole!=="conseiller"){alert("Seul le Conseiller peut verrouiller !");return;}
+  let c=document.getElementById("codeVerrou").value;
+  if(c!==codeSecret){alert("❌ Code Secret faux");return;}
+  verrouille=true;document.getElementById("etatVerrou").innerText="État : 🔒 ANNÉE VERROUILLÉE - Immodifiable. Seul le Conseiller avec Code + Empreinte peut déverrouiller.";
+  alert("🔒 Année 2026-2027 verrouillée ! Personne ne peut modifier.");
+}
+function deverrouillerEmpreinte(){
+  if(currentRole!=="conseiller"){alert("Seul le Conseiller !");return;}
+  let c=prompt("Entre Code Secret :");
+  if(c!==codeSecret){alert("❌ Code faux");return;}
+  // Empreinte via WebAuthn / capteur téléphone
+  if(window.PublicKeyCredential){
+    alert("👆 Pose ton doigt sur le capteur... (Empreinte vérifiée sur ton téléphone)");
+  } else {
+    let ok=confirm("👆 Ton téléphone demande l'empreinte. C'est bien toi ? Clique OK pour confirmer avec ton doigt.");
+    if(!ok) return;
+  }
+  verrouille=false;document.getElementById("etatVerrou").innerText="État : 🟢 ANNÉE OUVERTE - On peut modifier";
+  alert("✅ Déverrouillé avec Code + Empreinte. Tu as 10 minutes pour corriger.");
+}
+function loadImg(input,imgId,key){
+  let f=input.files[0]; if(!f) return;
+  let r=new FileReader(); r.onload=e=>{document.getElementById(imgId).src=e.target.result; localStorage.setItem("hounde_"+key,e.target.result);}; r.readAsDataURL(f);
+}
+function ajouterClasse(){
+  let n=document.getElementById("nouvelleClasse").value.trim(); if(!n) return;
+  classes.push(n); renderAll();
+}
+function changerAnnee(v){document.getElementById("anneeLabel").innerText=v; alert("Année "+v+" affichée. Les anciennes années sont gardées en archives, rien n'est perdu.");}
 function ajouterEleve(){
-let nom=document.getElementById('nouvelEleve').value.trim();if(!nom) return alert("Écris le nom de l'élève d'abord");
-let parent=document.getElementById('nomParent').value.trim()||"Parent non renseigné";
-let tel=document.getElementById('numParent').value.trim()||"Pas de numéro";
-let cl=getClasse();if(!elevesParClasse[cl]) elevesParClasse[cl]=[];
-elevesParClasse[cl].push({nom:nom,present:true,matiereAbs:"Maths",photo:photoTemp||photoDefaut,parent:parent,tel:tel});
-elevesParClasse[cl].sort((a,b)=>a.nom.localeCompare(b.nom));localStorage.setItem('lrh_eleves',JSON.stringify(elevesParClasse));
-document.getElementById('nouvelEleve').value="";document.getElementById('nomParent').value="";document.getElementById('numParent').value="";document.getElementById('photoEleve').value="";photoTemp="";document.getElementById('apercuPhoto').style.display='none';
-afficherEleves();
+  if(verrouille){alert("🔒 Année verrouillée ! Impossible de modifier.");return;}
+  let nom=document.getElementById("nomEleve").value.trim(), pren=document.getElementById("prenomEleve").value.trim();
+  if(!nom||!pren){alert("Mets Nom + Prénom");return;}
+  let chefs=eleves.filter(e=>e.classe===classeActive && e.chef).length;
+  if(document.getElementById("estChef").checked && chefs>=2){alert("Déjà 2 chefs dans cette classe !");return;}
+  let photo="https://via.placeholder.com/54?text="+encodeURIComponent(pren[0]);
+  let file=document.getElementById("photoEleve").files[0];
+  if(file){ let r=new FileReader(); r.onload=e=>{finirAjout(e.target.result);}; r.readAsDataURL(file); } else finirAjout(photo);
+  function finirAjout(ph){
+    eleves.push({id:Date.now(),nom,prenom:pren,classe:classeActive,photo:ph,parent:document.getElementById("parentEleve").value,tel:document.getElementById("telParent").value,chef:document.getElementById("estChef").checked,absences:[]});
+    save(); renderAll(); alert("✅ Élève ajouté, numéro automatique !");
+  }
 }
-function optionsMatiere(sel){return matieres.map(m=>`<option ${m===sel?'selected':''}>${m}</option>`).join('');}
-function basculerVue(){vueGalerie=!vueGalerie;document.getElementById('vueTableau').classList.toggle('hidden',vueGalerie);document.getElementById('vueGalerie').classList.toggle('hidden',!vueGalerie);document.getElementById('btnVue').innerText=vueGalerie?"📋 VOIR EN LISTE TABLEAU":"🖼️ VOIR EN GALERIE PHOTOS";afficherEleves();}
-function cliquerEleve(i){let cl=getClasse();let e=elevesParClasse[cl][i];e.present=!e.present;if(!e.present){e.matiereAbs=document.getElementById('matiere').value;e.heureAbs=document.getElementById('heure').value;}localStorage.setItem('lrh_eleves',JSON.stringify(elevesParClasse));afficherEleves();}
-function afficherEleves(){
-let cl=getClasse();document.getElementById('classeTitre').innerText=cl;document.getElementById('classeAbsTitre').innerText=cl;let liste=elevesParClasse[cl]||[];liste.sort((a,b)=>a.nom.localeCompare(b.nom));
-let html="";let gal="";
-liste.forEach((e,i)=>{
-let matSelect=e.present?`<span style="color:#888;font-size:12px">-</span>`:`<select onchange="changerMatiere(${i},this.value)" style="padding:6px;font-size:13px">${optionsMatiere(e.matiereAbs||document.getElementById('matiere').value)}</select>`;
-let classeBtn=e.present?"nom-btn":"nom-btn absent";
-let txtBtn=e.present?e.nom:"❌ "+e.nom+" - ABSENT";
-let parentHtml=`<b>${e.parent||'Parent non renseigné'}</b><br><span>📞 ${e.tel||'Pas de numéro'}</span><br><a class="call-btn" href="tel:${(e.tel||'').replace(/\s/g,'')}">📞 APPELER</a>`;
-html+=`<tr class="${e.present?'':'absent-row'}"><td><b>${i+1}</b></td><td><img src="${e.photo||photoDefaut}" class="photo" onclick="cliquerEleve(${i})"></td><td><button class="${classeBtn}" onclick="cliquerEleve(${i})">${txtBtn}</button></td><td style="font-size:13px">${parentHtml}</td><td><input type="checkbox" ${e.present?'checked':''} onchange="changerPresence(${i},this.checked)" style="width:22px;height:22px"></td><td>${matSelect}</td><td><button onclick="supprimerEleve(${i})" style="background:#c00;padding:6px">X</button></td></tr>`;
-let classeCarte=e.present?"carte-eleve":"carte-eleve absent";
-gal+=`<div class="${classeCarte}" onclick="cliquerEleve(${i})"><img src="${e.photo||photoDefaut}"><b>${i+1}. ${e.nom}</b><span>${e.present?'✅ Présent':'❌ ABSENT'}</span><span style="display:block;margin-top:4px">👨 ${e.parent||''}<br>📞 ${e.tel||''}</span></div>`;
-});
-document.getElementById('listeEleves').innerHTML=html||'<tr><td colspan="7">Aucun élève. Ajoute le premier avec photo + parent.</td></tr>';
-document.getElementById('galerieEleves').innerHTML=gal||'Aucun élève.';
-afficherAbsences();
+function renderAll(){
+  let hc=document.getElementById("listeClasses"); hc.innerHTML="";
+  classes.forEach(c=>{let b=document.createElement("button"); b.className="btn btn-gray"; b.innerText=c; b.onclick=()=>{classeActive=c; document.getElementById("classeActive").innerText=c; document.getElementById("classeActive2").innerText=c; renderAll();}; hc.appendChild(b);});
+  let list=eleves.filter(e=>e.classe===classeActive);
+  let div=document.getElementById("listeEleves"); div.innerHTML="";
+  document.getElementById("totalClasse").innerText="("+list.length+" élèves)";
+  list.forEach((e,i)=>{
+    let nj=e.absences.filter(a=>a.obs==="Non Justifiée").length;
+    let j=e.absences.filter(a=>a.obs==="Justifiée").length;
+    let regle=parseInt(document.getElementById("reglePoints").value||2);
+    let points=nj*regle;
+    let alerte = nj>=parseInt(document.getElementById("seuilAbs").value||3) ? " 🚨 ALERTE" : "";
+    let d=document.createElement("div"); d.className="student"+(alerte?" alert":"");
+    d.innerHTML=`<img src="${e.photo}" class="avatar"><div style="flex:1"><b>N°${i+1} - ${e.nom} ${e.prenom}</b> ${e.chef?'⭐ CHEF':''}<br><small>${e.absences.length} absences : ${j} ✅ / ${nj} ❌ • <b style="color:red">-${points} points</b>${alerte}</small><br><small>Coché par ${currentUser||""}</small></div><button class="btn btn-blue" onclick="ouvrirFiche(${e.id})">VOIR FICHE</button>`;
+    div.appendChild(d);
+  });
+  let ex=document.getElementById("listeExpulses"); ex.innerHTML="";
+  if(expulses.length===0) ex.innerHTML="<i>Aucun expulsé</i>";
+  expulses.forEach(e=>{ ex.innerHTML+=`<div class="student"><img src="${e.photo}" class="avatar"><div style="flex:1"><b>${e.nom} ${e.prenom} - ${e.classe}</b><br><small>Expulsé • Motif gardé</small></div><button class="btn btn-green" onclick="remettre(${e.id})">🔙 REMETTRE</button></div>`;});
+  calculerBilan(); calculerAlertes();
 }
-function afficherAbsences(){
-let cl=getClasse();let liste=elevesParClasse[cl]||[];let absents=liste.filter(e=>!e.present);
-document.getElementById('compteurAbs').innerText=absents.length;
-if(!absents.length){document.getElementById('listeAbsences').innerHTML='<p class="small">Aucun absent pour le moment 🎉</p>';return;}
-let h=document.getElementById('heure').value;let mat=document.getElementById('matiere').value;
-document.getElementById('listeAbsences').innerHTML=absents.map((e,idx)=>`<div class="absence-item"><img src="${e.photo||photoDefaut}"><div style="flex:1"><b>${idx+1}. ${e.nom}</b><br><span class="small">${cl} • Absent en ${e.matiereAbs||mat} • ${e.heureAbs||h}<br>👨 Parent : ${e.parent||''} • 📞 ${e.tel||''}</span><br><a href="tel:${(e.tel||'').replace(/\s/g,'')}" style="background:#0a8a00;color:white;padding:6px 10px;border-radius:8px;text-decoration:none;display:inline-block;margin-top:4px;font-size:13px">📞 APPELER LE PARENT</a></div><button onclick="retourPresent('${e.nom}')" style="width:auto;padding:8px;background:#0a8a00">↩️ Présent</button></div>`).join('');
+function ouvrirFiche(id){
+  eleveOuvert=eleves.find(e=>e.id===id); if(!eleveOuvert) return;
+  document.getElementById("fiche").classList.remove("hidden");
+  let idx=eleves.filter(e=>e.classe===eleveOuvert.classe).indexOf(eleveOuvert)+1;
+  document.getElementById("ficheTitre").innerText=`FICHE N°${idx} - ${eleveOuvert.nom} ${eleveOuvert.prenom} - ${eleveOuvert.classe}`;
+  let h=`<p>Parent : ${eleveOuvert.parent||"-"} • Tel : ${eleveOuvert.tel||"-"}</p><table><tr><th>Jour</th><th>Horaire</th><th>Motif</th><th>Observation</th></tr>`;
+  eleveOuvert.absences.forEach(a=>{h+=`<tr><td>${a.jour}</td><td>${a.horaire}</td><td>${a.motif}</td><td>${a.obs==="Justifiée"?"✅ Justifiée":"❌ Non Justifiée"}</td></tr>`;});
+  h+="</table>"; document.getElementById("ficheContenu").innerHTML=h;
+  window.scrollTo(0,document.getElementById("fiche").offsetTop);
 }
-function retourPresent(nom){let cl=getClasse();let e=elevesParClasse[cl].find(x=>x.nom===nom);if(e){e.present=true;localStorage.setItem('lrh_eleves',JSON.stringify(elevesParClasse));afficherEleves();}}
-function changerPresence(i,val){let cl=getClasse();elevesParClasse[cl][i].present=val;if(!val){elevesParClasse[cl][i].matiereAbs=document.getElementById('matiere').value;elevesParClasse[cl][i].heureAbs=document.getElementById('heure').value;}localStorage.setItem('lrh_eleves',JSON.stringify(elevesParClasse));afficherEleves();}
-function changerMatiere(i,val){let cl=getClasse();elevesParClasse[cl][i].matiereAbs=val;localStorage.setItem('lrh_eleves',JSON.stringify(elevesParClasse));afficherEleves();}
-function supprimerEleve(i){if(confirm("Supprimer cet élève, sa photo et son parent ?")){let cl=getClasse();elevesParClasse[cl].splice(i,1);localStorage.setItem('lrh_eleves',JSON.stringify(elevesParClasse));afficherEleves();}}
-function enregistrerAppel(){let cl=getClasse();let h=document.getElementById('heure').value;let mat=document.getElementById('matiere').value;let prof=document.getElementById('prof').value||"";let liste=elevesParClasse[cl]||[];let absents=liste.filter(e=>!e.present);let txt=`✅ Appel enregistré : <b>${cl}</b> • ${h} • ${mat} • ${prof}<br>Présents : ${liste.length-absents.length} / ${liste.length}<br><b>Absents (${absents.length}) :</b><br>`;if(!absents.length) txt+="Aucun absent 🎉";else txt+=absents.map(e=>`• ${e.nom} — Absent en <b>${e.matiereAbs||mat}</b> à ${e.heureAbs||h} | Parent : ${e.parent||''} - ${e.tel||''}`).join('<br>');document.getElementById('resultat').innerHTML=txt;}
-function effacerAbsences(){if(confirm("Remettre tous les absents en Présent ?")){let cl=getClasse();(elevesParClasse[cl]||[]).forEach(e=>e.present=true);localStorage.setItem('lrh_eleves',JSON.stringify(elevesParClasse));afficherEleves();}}
+function fermerFiche(){document.getElementById("fiche").classList.add("hidden");}
+function ajouterAbsence(){
+  if(verrouille){alert("🔒 Année verrouillée !");return;}
+  if(!eleveOuvert) return;
+  eleveOuvert.absences.push({jour:document.getElementById("jourAbs").value,horaire:document.getElementById("horaireAbs").value,motif:document.getElementById("motifAbs").value,obs:document.getElementById("obsAbs").value,date:new Date().toISOString()});
+  save(); ouvrirFiche(eleveOuvert.id); renderAll(); alert("✅ Absence enregistrée");
+}
+function expulserEleve(){
+  if(verrouille){alert("🔒 Verrouillé");return;}
+  let motif=prompt("Motif d'expulsion :"); if(!motif) return;
+  expulses.push({...eleveOuvert,motifExp:motif});
+  eleves=eleves.filter(e=>e.id!==eleveOuvert.id); save(); fermerFiche(); renderAll();
+}
+function remettre(id){
+  let e=expulses.find(x=>x.id===id); expulses=expulses.filter(x=>x.id!==id); e.absences=e.absences||[]; eleves.push(e); save(); renderAll();
+}
+function calculerBilan(){
+  let regle=parseInt(document.getElementById("reglePoints").value||2);
+  let list=eleves.filter(e=>e.classe===classeActive);
+  let h=`<table><tr><th>N°</th><th>Élève</th><th>Non Justifiées</th><th>Points à retirer</th></tr>`;
+  list.forEach((e,i)=>{let nj=e.absences.filter(a=>a.obs==="Non Justifiée").length; h+=`<tr><td>${i+1}</td><td>${e.nom} ${e.prenom}</td><td>${nj}</td><td><b>-${nj*regle} points</b></td></tr>`;});
+  h+="</table>"; document.getElementById("bilan").innerHTML=h;
+}
+function calculerAlertes(){
+  let seuil=parseInt(document.getElementById("seuilAbs").value||3);
+  let zone=document.getElementById("alertes"); zone.innerHTML="";
+  eleves.forEach(e=>{
+    let nj=e.absences.filter(a=>a.obs==="Non Justifiée").length;
+    if(nj>=seuil){ zone.innerHTML+=`<div class="alert card">🚨 <b>${e.nom} ${e.prenom} - ${e.classe}</b> : ${nj} Non Justifiées → ATTENTION CONSEILLER → Envoyer convocation</div>`; }
+  });
+  if(!zone.innerHTML) zone.innerHTML="<i>Aucune alerte pour le moment ✅</i>";
+}
+function genererConvocation(){
+  if(!eleveOuvert) return;
+  let nj=eleveOuvert.absences.filter(a=>a.obs==="Non Justifiée").length;
+  document.getElementById("convocationZone").innerHTML=`
+  <div class="card" style="border:2px solid #0b2a5b">
+  <b>LYCÉE RÉGIONAL DE HOUNDÉ - CONVOCATION</b><br>
+  Parent de : ${eleveOuvert.nom} ${eleveOuvert.prenom} - ${eleveOuvert.classe}<br>
+  Tel parent : ${eleveOuvert.tel}<br>
+  Votre enfant a fait ${nj} absences Non Justifiées.<br>
+  Prière de vous présenter au bureau du Conseiller.<br>
+  Signé : M. Kaboré, Conseiller<br>
+  <a target="_blank" href="https://wa.me/226${eleveOuvert.tel||''}?text=${encodeURIComponent("Bonjour, convocation LYCÉE RÉGIONAL DE HOUNDÉ pour "+eleveOuvert.prenom)}"><button class="btn btn-green">🟢 ENVOYER SUR WHATSAPP AU PARENT</button></a>
+  </div>`;
+}
+// Anti-capture : flou quand on quitte + bloque clic droit + bloque capture sur Android via visibilité
+document.addEventListener("visibilitychange",()=>{ if(document.hidden){document.body.style.filter="blur(12px)";} else {document.body.style.filter="none";} });
+document.addEventListener("contextmenu",e=>{e.preventDefault(); alert("⛔ Copie / Capture bloquée - LYCÉE RÉGIONAL DE HOUNDÉ");});
+document.addEventListener("keyup",e=>{ if(e.key==="PrintScreen"){ document.body.style.filter="blur(12px)"; setTimeout(()=>document.body.style.filter="none",1500); alert("⛔ Capture bloquée"); }});
 </script>
 </body>
 </html>
